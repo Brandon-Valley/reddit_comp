@@ -1,4 +1,5 @@
 import praw,requests,re
+import os
 
 reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
                      client_secret='XuwpmqtersoJVnbukddVFOgKXl4', 
@@ -6,31 +7,54 @@ reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
                      user_agent='PrawTut', 
                      username='goddard0001')
 
-subreddit = reddit.subreddit('pics')    
+# submissions = reddit.get_subreddit('unexpectedjihad').get_top(limit=3)
 
-# hot_python = subreddit.hot(limit=1)
+subreddit = reddit.subreddit('videomemes')    
+ 
+submissions = subreddit.hot(limit=1)
 
-# for submission in hot_python:
-#     print(submission)
-#     
-# for submission in hot_python:
-#     print(submission.title)
-#     
+urls = []
+def yt() :
+    for x in submissions:
+        urls.append(str(x.url))
+    return urls
 
-posts = subreddit.hot(limit=2)
+yt_urls = yt()
+
+for item in yt_urls:
+    print ("downloading..." + " ")
+    os.system("youtube-dl" + " " + item)
+    print ("done")
 
 
-for post in posts:
-    url = (post.url)
-    file_name = url.split("/")
-    if len(file_name) == 0:
-        file_name = re.findall("/(.*?)", url)
-    file_name = file_name[-1]
-    if "." not in file_name:
-        file_name += ".jpg"
-    print(file_name)
-r = requests.get(url)
-with open(file_name,"wb") as f:
-    f.write(r.content)
+
+
+# subreddit = reddit.subreddit('videomemes')    
+# 
+# # hot_python = subreddit.hot(limit=1)
+# 
+# # for submission in hot_python:
+# #     print(submission)
+# #     
+# # for submission in hot_python:
+# #     print(submission.title)
+# #     
+# 
+# posts = subreddit.hot(limit=1)
+# 
+# 
+# for post in posts:
+#     url = (post.url)
+#     print('url:  ', url)
+#     file_name = url.split("/")
+#     if len(file_name) == 0:
+#         file_name = re.findall("/(.*?)", url)
+#     file_name = file_name[-1]
+#     if "." not in file_name:
+#         file_name += ".mp4"
+#     print(file_name)
+# r = requests.get(url)
+# with open(file_name,"wb") as f:
+#     f.write(r.content)
     
     
