@@ -1,2 +1,3 @@
+file vids_to_compile/Oh_shit.mp4
 file vids_to_compile/Oof.mp4
-file vids_to_compile/q.mp4
+file vids_to_compile/This_kid_is_going_places.mp4

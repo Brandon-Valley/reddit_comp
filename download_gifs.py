@@ -14,21 +14,22 @@ reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
 
 subreddit = reddit.subreddit('videomemes')    
  
-submissions = subreddit.hot(limit=2)
+submissions = subreddit.hot(limit=3)
 
 
 
-for item in submissions:
+for item_num, item in enumerate(submissions):
+    item_title = item.title.replace(" ", "_") # cant have spaces in the filenames
 #     post_titles.append(item.title)
    # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
-    ydl_opts = {'outtmpl': VIDS_TO_COMPILE_FOLDER_PATH + '/' + item.title + '.%(ext)s'}
+    ydl_opts = {'outtmpl': VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.%(ext)s'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([item.url, ])
        
         # #join formats
-        path_to_vid   = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item.title + '.mp4'
-        path_to_audio = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item.title + '.m4a'
-        out_path      = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item.title + '_final_' + '.mp4'
+        path_to_vid   = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.mp4'
+        path_to_audio = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.m4a'
+        out_path      = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '_final_' + '.mp4'
         cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s' % (path_to_vid, path_to_audio, out_path)
         subprocess.call(cmd, shell=True)
        
