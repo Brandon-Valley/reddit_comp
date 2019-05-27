@@ -3,13 +3,27 @@ import os
 import youtube_dl
 import subprocess
 
+import requests
+# import urllib.request
+import time
+# from bs4 import BeautifulSoup
+
 VIDS_TO_COMPILE_FOLDER_PATH = 'vids_to_compile'
 
-reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
-                     client_secret='XuwpmqtersoJVnbukddVFOgKXl4', 
-                     password='Barkbark1',
-                     user_agent='PrawTut', 
-                     username='goddard0001')
+
+
+def get_text_from_url(url):
+    time.sleep(10)
+    response = requests.get(url)
+    return response.text
+
+
+
+reddit = praw.Reddit(client_id     ='0MND-O3qUZg0gw',
+                     client_secret ='XuwpmqtersoJVnbukddVFOgKXl4', 
+                     password      ='Barkbark1',
+                     user_agent    ='PrawTut', 
+                     username      ='goddard0001')
 
 
 subreddit = reddit.subreddit('videomemes')    
@@ -19,11 +33,18 @@ submissions = subreddit.hot(limit=3)
 
 
 for item_num, item in enumerate(submissions):
+    
+#     time.sleep(10)#`````````````````````````````````````````````````````````````````````
+#     print(get_text_from_url(item.url))
+    
     item_title = item.title.replace(" ", "_") # cant have spaces in the filenames
 #     post_titles.append(item.title)
    # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
     ydl_opts = {'outtmpl': VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.%(ext)s'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        dictMeta = ydl.extract_info(item.url, download=False)
+        print(dictMeta)
+        
         ydl.download([item.url, ])
        
         # #join formats
