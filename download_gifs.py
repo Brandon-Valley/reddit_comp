@@ -1,6 +1,7 @@
 import praw,requests,re
 import os
 import youtube_dl
+import subprocess
 
 reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
                      client_secret='XuwpmqtersoJVnbukddVFOgKXl4', 
@@ -28,11 +29,34 @@ submissions = subreddit.hot(limit=2)
 #     print ("done")
 
 
+# post_titles = []
+
 for item in submissions:
+#     post_titles.append(item.title)
    # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
-   ydl_opts = {'outtmpl': item.title + '.%(ext)s'}
-   with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-       ydl.download([item.url, ])
+    ydl_opts = {'outtmpl': item.title + '.%(ext)s'}
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([item.url, ])
+       
+        # #join formats
+        path_to_vid   = item.title + '.mp4'
+        path_to_audio = item.title + '.m4a'
+        out_path      = item.title + '_final_' + '.mp4'
+        
+#         import ffmpeg
+#         ffmpeg.run_ffmpeg_multiple_files([path_to_audio, path_to_vid], out_path, ['-c'])
+        
+        
+        
+        cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s' % (path_to_vid, path_to_audio, out_path)
+        subprocess.call(cmd, shell=True)
+       
+       
+print('ydl_opts:  ', ydl_opts)
+       
+# #join formats
+# cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s' % (path_to_vid, path_to_audio, out_path)
+# subprocess.call(cmd, shell=True)
 
 
 
