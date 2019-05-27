@@ -20,11 +20,50 @@
 # 
 # 
 # 
+def print_str_wo_error(str):
+    output = ''
+    
+    for char in str:
+        try:
+            print(char, end = '')
+        except:
+            print('[' + format(ord(char), "x") + ']', end = '')
+            
+    print('')
+    
+    
 from selenium import webdriver
-driver = webdriver.Chrome(executable_path="C:/Users/Brandon/Downloads/chromedriver_win32/chromedriver.exe")
-driver.get('https://old.reddit.com/r/videomemes/comments/btf30h/when_your_mom_finds_you_casually_playing/')
 
-s = driver.page_source.spl
+# '1:36' -->  96
+def time_str_to_total_seconds(time_str):
+    time_str = duration_str.split(':')
+    seconds = int( duration_split_str[1])
+    minutes = int( duration_split_str[0])
+    
+    total_seconds = seconds + (minutes * 60)
+    return total_seconds
+    
+
+def get_vid_duration__reddit_embedded(vid_url):
+    driver = webdriver.Chrome(executable_path="C:/Users/Brandon/Downloads/chromedriver_win32/chromedriver.exe")
+    driver.get(vid_url)
+    sp1 = driver.page_source.split('class="portrait"></video><span class="seek-bar-time"></span></div></div><span class="time-label" data-control-type="text" data-action="totalTime">')
+    duration_str = sp1[1].split('<')[0]
+    
+    return(time_str_to_total_seconds(duration_str))
+    
+
+
+vid_url = 'https://www.reddit.com/r/dankvideos/comments/bthlor/the_kook_aids_man/'
+
+print(get_vid_duration__reddit_embedded(vid_url))
+
+
+
+# print(len(s))
+# for a in s:
+#     print('...................')
+#     print_str_wo_error(a)
 # print(driver.page_source)
 # 
 # vid_duration = driver.find_element_by_class_name('duration-overlay')#duration-overlay
