@@ -1,5 +1,6 @@
 import praw,requests,re
 import os
+import youtube_dl
 
 reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
                      client_secret='XuwpmqtersoJVnbukddVFOgKXl4', 
@@ -11,21 +12,27 @@ reddit = praw.Reddit(client_id='0MND-O3qUZg0gw',
 
 subreddit = reddit.subreddit('videomemes')    
  
-submissions = subreddit.hot(limit=1)
+submissions = subreddit.hot(limit=2)
 
-urls = []
-def yt() :
-    for x in submissions:
-        urls.append(str(x.url))
-    return urls
+# urls = []
+# def yt() :
+#     for x in submissions:
+#         urls.append(str(x.url))
+#     return urls
+# 
+# yt_urls = yt()
+# 
+# for item in yt_urls:
+#     print ("downloading..." + " ")
+#     os.system("youtube-dl" + " " + item)
+#     print ("done")
 
-yt_urls = yt()
 
-for item in yt_urls:
-    print ("downloading..." + " ")
-    os.system("youtube-dl" + " " + item)
-    print ("done")
-
+for item in submissions:
+   # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
+   ydl_opts = {'outtmpl': item.title + '.%(ext)s'}
+   with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+       ydl.download([item.url, ])
 
 
 
