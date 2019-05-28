@@ -1,5 +1,6 @@
 from moviepy.editor import VideoFileClip, concatenate_videoclips
 
+import os
 from os import listdir
 from os.path import isfile, join
 
@@ -20,9 +21,21 @@ def write_text_file(file_path, line_list):
     # cleanup
     f.close()
     
+# make sure everyone ends with .mp4
+def clean_up_vid_extentions():
+    vid_filename_list = os.listdir(VIDS_TO_COMPILE_FOLDER_PATH)
+    
+    for vid_filename in vid_filename_list:
+        split_vid_filename = vid_filename.split('.')
+        if split_vid_filename[-1] != 'mp4':
+            new_vid_filename = split_vid_filename[0] + '.mp4'
+            os.rename(VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_filename, VIDS_TO_COMPILE_FOLDER_PATH + '/' + new_vid_filename)
+    
     
     
 def compile_vids():
+    clean_up_vid_extentions()
+    
     vid_filenames_to_compile = [f for f in listdir(VIDS_TO_COMPILE_FOLDER_PATH) if isfile(join(VIDS_TO_COMPILE_FOLDER_PATH, f))]
      
     # build concat txt file
@@ -30,7 +43,7 @@ def compile_vids():
     for vid_filename in vid_filenames_to_compile:
         vid_file_path = VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_filename 
         line_list.append('file ' + vid_file_path)
-        print(line_list)#``````````````````````````````````````````````````````````````````````````````````````````````````````````````
+#         print(line_list)#``````````````````````````````````````````````````````````````````````````````````````````````````````````````
     write_text_file(VID_CONCAT_FILE_PATH, line_list)
         
     

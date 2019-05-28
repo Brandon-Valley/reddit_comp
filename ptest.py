@@ -56,6 +56,18 @@ def get_vid_duration__youtube(driver):
     return time_str_to_total_seconds(duration_str)
  
 
+# trys to return length of video in seconds, returns false if it cant tell
+def get_vid_duration(driver):
+    try:
+        total_seconds = get_vid_duration__reddit_embedded(driver)
+        return total_seconds
+    except:
+        try:
+            total_seconds = get_vid_duration__youtube(driver)
+            return total_seconds
+        except:
+            return False
+
     
 
 
