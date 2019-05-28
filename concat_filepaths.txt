@@ -1,3 +1,12 @@
+file vids_to_compile/Da_fucc.mp4
+file vids_to_compile/Free_shower.mp4
 file vids_to_compile/Oh_shit.mp4
 file vids_to_compile/Oof.mp4
+file vids_to_compile/Oooof.mp4
+file vids_to_compile/Peacefully_and_helpfully_responding_to_anxiety_like.mp4
+file vids_to_compile/SpiderLadd_Gets_Oof'd.mkv
 file vids_to_compile/This_kid_is_going_places.mp4
+file vids_to_compile/Trick_shot_for_my_cake_day.mp4
+file vids_to_compile/When_your_mom_finds_you_casually_playing_videogames_at_3_in_the_morning.mp4
+file vids_to_compile/When_your_mom_finds_you_playing_video_games_at_3_in_the_morning.mp4
+file vids_to_compile/Why_is_the_volume_so_low.mp4

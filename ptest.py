@@ -44,19 +44,28 @@ def time_str_to_total_seconds(time_str):
     return total_seconds
     
 
-def get_vid_duration__reddit_embedded(vid_url):
-    driver = webdriver.Chrome(executable_path="C:/Users/Brandon/Downloads/chromedriver_win32/chromedriver.exe")
-    driver.get(vid_url)
+def get_vid_duration__reddit_embedded(driver):
     sp1 = driver.page_source.split('class="portrait"></video><span class="seek-bar-time"></span></div></div><span class="time-label" data-control-type="text" data-action="totalTime">')
     duration_str = sp1[1].split('<')[0]
     
     return(time_str_to_total_seconds(duration_str))
+
+ 
+def get_vid_duration__youtube(driver):
+    duration_str = driver.find_element_by_class_name('ytp-time-duration')
+    return time_str_to_total_seconds(duration_str)
+ 
+
     
 
 
 vid_url = 'https://www.reddit.com/r/dankvideos/comments/bthlor/the_kook_aids_man/'
+driver = webdriver.Chrome(executable_path="C:/Users/Brandon/Downloads/chromedriver_win32/chromedriver.exe")
+print('here')
+driver.get(vid_url)
+print('here2')
 
-print(get_vid_duration__reddit_embedded(vid_url))
+print(get_vid_duration__reddit_embedded(driver))
 
 
 
