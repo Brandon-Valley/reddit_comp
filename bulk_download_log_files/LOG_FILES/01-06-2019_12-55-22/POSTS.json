@@ -1,0 +1,103 @@
+{
+    "HEADER": "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory bulk_download_log_files --subreddit videomemes --limit 10 --sort hot --NoDownload",
+    "1": [
+        {
+            "postId": "bvmf9u",
+            "postTitle": "HAIL MOTHER RUSSIA",
+            "postSubmitter": "livingyeet",
+            "postType": "direct",
+            "postURL": "https://v.redd.it/wehz7zdizo131/DASH_480",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "2": [
+        {
+            "postId": "bvkoae",
+            "postTitle": "Nword... I mean nether",
+            "postSubmitter": "wiktor_skemm",
+            "postType": null,
+            "postURL": "https://youtu.be/6j1aHLuPiTo",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "3": [
+        {
+            "postId": "bvfodk",
+            "postTitle": "Bro I got you something...(WHOLESOME MEME)",
+            "postSubmitter": "Disappointing_Search",
+            "postType": null,
+            "postURL": "https://youtu.be/cfnipXpdCno",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "4": [
+        {
+            "postId": "bv6p26",
+            "postTitle": "Ender Dragon is Gone!!!1!",
+            "postSubmitter": "Sp8craft",
+            "postType": null,
+            "postURL": "https://youtu.be/YQiET4ZHfeA",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "5": [
+        {
+            "postId": "buz4bx",
+            "postTitle": "I love this meme (not mine I just like it)",
+            "postSubmitter": "buda-bing-badabam",
+            "postType": "direct",
+            "postURL": "https://v.redd.it/4gh4vps27f131/DASH_360",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "6": [
+        {
+            "postId": "bv47r9",
+            "postTitle": "Hoes Mad Vs. Hose Mad",
+            "postSubmitter": "Chickenlegpotatocorn",
+            "postType": null,
+            "postURL": "https://www.youtube.com/attribution_link?a=ypELexPWVr0&u=%2Fwatch%3Fv%3Dh-qpZqx78JM%26feature%3Dshare",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "7": [
+        {
+            "postId": "bumbke",
+            "postTitle": "Thanos deletes the cringe you posted",
+            "postSubmitter": "Disappointing_Search",
+            "postType": null,
+            "postURL": "https://youtu.be/cwtIB9fZSrk",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "8": [
+        {
+            "postId": "buhxgw",
+            "postTitle": "It\u2019s a secret to everyone....How to fix a car dent",
+            "postSubmitter": "Adv2k169XLplusCats",
+            "postType": "direct",
+            "postURL": "https://v.redd.it/cc4ybss0w6131/DASH_720",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "9": [
+        {
+            "postId": "bufviy",
+            "postTitle": "misfiring system",
+            "postSubmitter": "_ThatTechNerd_",
+            "postType": "direct",
+            "postURL": "https://v.redd.it/761apywe26131/DASH_1080",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "10": [
+        {
+            "postId": "buii2g",
+            "postTitle": "Down",
+            "postSubmitter": "cjsour532",
+            "postType": "direct",
+            "postURL": "https://v.redd.it/vj5i56of27131/DASH_720",
+            "postSubreddit": "videomemes"
+        }
+    ]
+}

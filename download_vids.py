@@ -116,37 +116,30 @@ def download_reddit_vid(video_url, save_dir_path, post_info_d_title):
 
 
 def download_vids(num_posts, subreddit_list):
-    print(  'getting post_info_dl...')
+    print('  Getting post_info_dl...')
     post_info_dl = get_post_info_dl.get_post_info_dl(num_posts, subreddit_list)
 
-
-
-# reddit = praw.Reddit(client_id     ='0MND-O3qUZg0gw',
-#                      client_secret ='XuwpmqtersoJVnbukddVFOgKXl4', 
-#                      password      ='Barkbark1',
-#                      user_agent    ='PrawTut', 
-#                      username      ='goddard0001')
-# 
-# 
-# subreddit = reddit.subreddit('videomemes')    
-#  
-# submissions = subreddit.hot(limit=5)
-
-
     # set up browser
-    print('  setting up phanomJS browser (needed for some vid duration stuff)...')
+    print('  Setting up phanomJS browser (needed for some vid duration stuff)...')
     driver = webdriver.PhantomJS(PHANTOM_JS_PATH)
 
 
     for post_num, post_info_d in enumerate(post_info_dl):
-        print("  checking duration of post_info_d #:  %s ..." %(post_num))
+        if post_info_d['postType'] != None:
+            print('  Skipping post#: %s because its postType = %s ...' %(post_num, post_info_d['postType']))
+            continue
+        
+        print("  Checking duration of post_info_d #:  %s ..." %(post_num))
         
         # test to see if you can tell how long the vidoe will be before
         # you start trying to download it, if you can tell, compare it 
         # to the MAX_CLIP_DURATION to see if it makes it in
         driver.get(post_info_d['postURL'])
         vid_duration = get_vid_duration(driver)
-        if vid_duration != False and vid_duration > MAX_CLIP_DURATION:
+        if vid_duration == False:
+            print('    Could not get video duration')
+        elif vid_duration > MAX_CLIP_DURATION:
+            print('    Video too long!')
             continue
         
         
@@ -155,6 +148,7 @@ def download_vids(num_posts, subreddit_list):
         
 #         print(post_info_d['postURL'])
         
+        print('  Trying to download video...')
         download_youtube_vid(post_info_d['postURL'], VIDS_TO_COMPILE_FOLDER_PATH, post_info_d_title)
         
         
@@ -169,6 +163,6 @@ def download_vids(num_posts, subreddit_list):
 
            
 if __name__ == '__main__':
-    download_vids(4, ['videomemes', 'pics'])
+    download_vids(20, ['videomemes'])
     
     
