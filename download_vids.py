@@ -39,10 +39,10 @@ def download_vids(num_posts, subreddit_list):
         # you start trying to download it, if you can tell, compare it 
         # to the MAX_CLIP_DURATION to see if it makes it in
         driver.get(post_info_d['postURL'])
-        vid_duration = dl_utils.get_vid_duration(driver)
+        vid_duration = dl_utils.get_vid_duration(driver, post_info_d['postURL'])
         if vid_duration == False:
             print('    Could not get video duration')
-        elif vid_duration > MAX_CLIP_DURATION:
+        elif int(vid_duration) > MAX_CLIP_DURATION:
             print('    Video too long!')
             continue
         
@@ -76,7 +76,7 @@ def download_vids(num_posts, subreddit_list):
 
            
 if __name__ == '__main__':
-    download_vids(20, ['videomemes'])
+    download_vids(50, ['dankvideos'])
     print('done!')
     
     

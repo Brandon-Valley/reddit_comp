@@ -1,21 +1,13 @@
-from moviepy.editor import VideoFileClip, concatenate_videoclips
+import praw
 
+reddit = praw.Reddit(client_id     ='0MND-O3qUZg0gw',
+                     client_secret ='XuwpmqtersoJVnbukddVFOgKXl4', 
+                     password      ='Barkbark1',
+                     user_agent    ='PrawTut', 
+                     username      ='goddard0001')
 
-from moviepy.editor import VideoFileClip, concatenate_videoclips
-
-import os
-from os import listdir
-from os.path import isfile, join
-
-
-VIDS_TO_COMPILE_FOLDER_PATH = 'vids_to_compile'
-VID_CONCAT_FILE_PATH = 'concat_filepaths.txt'
-OUTPUT_VID_FILE_PATH = 'output.mp4'
-vid_filenames_to_compile = [f for f in listdir(VIDS_TO_COMPILE_FOLDER_PATH) if isfile(join(VIDS_TO_COMPILE_FOLDER_PATH, f))]
-
-clip_list = []
-for vid_filename in vid_filenames_to_compile:
-    clip_list.append(VideoFileClip(VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_filename))
-
-final_clip = concatenate_videoclips(clip_list)
-final_clip.write_videofile("my_concatenation.mp4")
+subreddit = reddit.subreddit('dankvideos')
+hot_python = subreddit.hot(limit = 3)
+for submission in hot_python:
+    print(submission.media['reddit_video']['fallback_url'])
+    print(submission.media)
