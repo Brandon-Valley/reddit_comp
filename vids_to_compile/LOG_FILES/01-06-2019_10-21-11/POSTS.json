@@ -1,0 +1,33 @@
+{
+    "HEADER": "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile",
+    "1": [
+        {
+            "postId": "bvddi8",
+            "postTitle": "Primitive Technology: Polynesian Arrowroot Flour",
+            "postSubmitter": "Flambolt",
+            "postType": null,
+            "postURL": "https://www.youtube.com/watch?v=lMZY_9QNe4I&feature=push-u-sub&attr_tag=DQUpOGgh2pykzPYG%3A6",
+            "postSubreddit": "videos"
+        }
+    ],
+    "2": [
+        {
+            "postId": "bvd0vb",
+            "postTitle": "1000 miles through the hood",
+            "postSubmitter": "victorinox126",
+            "postType": null,
+            "postURL": "https://www.youtube.com/watch?v=bdFk35yT0ac",
+            "postSubreddit": "videos"
+        }
+    ],
+    "3": [
+        {
+            "postId": "bveeqj",
+            "postTitle": "Fur Missile Saves Cop from Scumbag",
+            "postSubmitter": "ry3beemaduro",
+            "postType": null,
+            "postURL": "https://www.youtube.com/watch?v=gcZVwFjjLXE",
+            "postSubreddit": "videos"
+        }
+    ]
+}

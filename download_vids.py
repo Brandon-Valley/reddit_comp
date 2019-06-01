@@ -9,6 +9,11 @@ import requests
 # import urllib.request
 import time
 # from bs4 import BeautifulSoup
+from pytube import YouTube
+
+
+import file_system_utils
+
 
 VIDS_TO_COMPILE_FOLDER_PATH = 'vids_to_compile'
 
@@ -61,6 +66,54 @@ def get_vid_duration(driver):
             return total_seconds
         except:
             return False
+        
+        
+
+# downloads yt vid at highest resolution
+def download_youtube_vid(videourl, path, save_title):
+
+    yt = YouTube(videourl)
+    yt = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
+    if not os.path.exists(path):
+        os.makedirs(path)
+    yt.download(path)
+    
+    # rename saved video
+    newest_file_path = file_system_utils.get_newest_file_path(path)
+    os.rename(newest_file_path, path + '//' + save_title + '.mp4')
+# downloadYouTube('https://www.youtube.com/watch?v=zNyYDHCg06c', './videos/FindingNemo1')
+
+
+def download_reddit_vid(video_url, save_dir_path, item_title):
+    #     post_titles.append(item.title)
+   # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
+    ydl_opts = {'outtmpl': save_dir_path + '.%(ext)s',
+                'socket-timeout': 20}
+#                 'format':'137'} <------------------------------------------------------------------- this is what is making stuff fail, need to find a way to always use the highest resolution available
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+#         dictMeta = ydl.extract_info(item.url, download=False)
+#         print(dictMeta)
+
+#         cmd = 'youtube-dl -o C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile/'+ item_title + ' ' + item.url + ' -c --socket-timeout 20'
+#         subprocess.call(cmd, shell=True)
+        try:
+                
+            ydl.download([video_url, ])
+           
+            # #join formats
+            path_to_vid   = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.mp4'
+            path_to_audio = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.m4a'
+            out_path      = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '_final_' + '.mp4'
+            cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s' % (path_to_vid, path_to_audio, out_path)
+            subprocess.call(cmd, shell=True)
+            
+            
+            #remove vid file that gets left in root dir
+    #         os.remove(item_title + '.mp4')
+        except:
+            print ("FAIL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+
 
 
 reddit = praw.Reddit(client_id     ='0MND-O3qUZg0gw',
@@ -72,7 +125,7 @@ reddit = praw.Reddit(client_id     ='0MND-O3qUZg0gw',
 
 subreddit = reddit.subreddit('videomemes')    
  
-submissions = subreddit.hot(limit=50)
+submissions = subreddit.hot(limit=5)
 
 
 # set up browser
@@ -93,32 +146,22 @@ for item_num, item in enumerate(submissions):
     
     
     item_title = 'post_' + str(item_num)#item.title.replace(" ", "_") # cant have spaces in the filenames
-#     post_titles.append(item.title)
-   # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
-    ydl_opts = {'outtmpl': VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.%(ext)s',
-                'socket-timeout': 20}
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-#         dictMeta = ydl.extract_info(item.url, download=False)
-#         print(dictMeta)
+    
+    
+    print(item.url)
+    
+    download_youtube_vid(item.url, VIDS_TO_COMPILE_FOLDER_PATH, item_title)
+    
+    
+#     # check url to use the right downloader
+#     if item.url.startswith('https://www.you'):
+#         download_youtube_vid(item.url, VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title, item_title)
+#     else:
+# #         download_reddit_vid(item.url, VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title)
+#         pass
+    
+    
 
-#         cmd = 'youtube-dl -o C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile/'+ item_title + ' ' + item.url + ' -c --socket-timeout 20'
-#         subprocess.call(cmd, shell=True)
-        try:
-                
-            ydl.download([item.url, ])
-           
-            # #join formats
-            path_to_vid   = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.mp4'
-            path_to_audio = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '.m4a'
-            out_path      = VIDS_TO_COMPILE_FOLDER_PATH + '/' + item_title + '_final_' + '.mp4'
-            cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s' % (path_to_vid, path_to_audio, out_path)
-            subprocess.call(cmd, shell=True)
-            
-            
-            #remove vid file that gets left in root dir
-    #         os.remove(item_title + '.mp4')
-        except:
-            print ("FAIL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
            
 
 

@@ -1,0 +1,44 @@
+
+ C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile 
+
+Bulk Downloader for Reddit v1.6.5.1
+
+select program mode:
+
+    [1] search
+    [2] subreddit
+    [3] multireddit
+    [4] submitted
+    [5] upvoted
+    [6] saved
+    [7] log
+    [0] exit
+
+
+select sort type:
+
+    [1] hot
+    [2] top
+    [3] new
+    [4] rising
+    [5] controversial
+    [0] exit
+
+SUBREDDIT: VIDEOS
+SORT: HOT
+TIME: ALL
+LIMIT: 3
+
+
+GETTING POSTS
+ERROR:root:NoMatchingSubmissionFound
+Traceback (most recent call last):
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\site-packages\cx_Freeze\initscripts\__startup__.py", line 14, in run
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\site-packages\cx_Freeze\initscripts\Console.py", line 26, in run
+  File "script.py", line 718, in <module>
+  File "script.py", line 691, in main
+  File "C:\Users\Ali\git-repositories\bulk-downloader-for-reddit\src\searcher.py", line 227, in getPosts
+  File "C:\Users\Ali\git-repositories\bulk-downloader-for-reddit\src\searcher.py", line 393, in redditSearcher
+src.errors.NoMatchingSubmissionFound: No matching submission was found
+
+No matching submission was found

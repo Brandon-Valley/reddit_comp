@@ -37,7 +37,7 @@ def compile_vids():
     clean_up_vid_extentions()
     
     vid_filenames_to_compile = [f for f in listdir(VIDS_TO_COMPILE_FOLDER_PATH) if isfile(join(VIDS_TO_COMPILE_FOLDER_PATH, f))]
-     
+      
     # build concat txt file
     line_list = []
     for vid_filename in vid_filenames_to_compile:
@@ -50,6 +50,7 @@ def compile_vids():
     # concat the files in the txt file
     cmd = 'ffmpeg -f concat -i ' + VID_CONCAT_FILE_PATH + ' -c copy ' + OUTPUT_VID_FILE_PATH + ' -y'
     subprocess.call(cmd, shell=True)
+    print('done with compile')
     
     
     

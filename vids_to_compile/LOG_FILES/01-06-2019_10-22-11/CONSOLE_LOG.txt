@@ -1,0 +1,114 @@
+
+ C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile 
+
+Bulk Downloader for Reddit v1.6.5.1
+
+select program mode:
+
+    [1] search
+    [2] subreddit
+    [3] multireddit
+    [4] submitted
+    [5] upvoted
+    [6] saved
+    [7] log
+    [0] exit
+
+
+select sort type:
+
+    [1] hot
+    [2] top
+    [3] new
+    [4] rising
+    [5] controversial
+    [0] exit
+
+SUBREDDIT: FRONTPAGE
+SORT: HOT
+TIME: ALL
+LIMIT: 20
+
+
+GETTING POSTS
+
+
+(1/19) – r/funny – DIRECT
+timetofeedthemonster_Life_is_a_Scam_bvk9p3.mp4
+Downloaded          
+
+(2/19) – r/gifs – IMGUR
+==> Client: 12500 - User: 500 - Reset after 60 Minutes 1 Seconds
+unrealethan_First_open_window_car_ride!_bvk2sd.mp4
+Downloaded          
+
+(3/19) – r/Unexpected – IMGUR
+==> Client: 12500 - User: 500 - Reset after 60 Minutes 1 Seconds
+FickleBeautiful_The_universal_language_bvkm5j.mp4
+Downloaded          
+
+(4/19) – r/WTF – DIRECT
+xd_Fabian_Well_that_was_easy_bvjmui.mp4
+Downloaded          
+
+(5/19) – r/interestingasfuck – GFYCAT
+mrdarcyyy_A_Dutch_museum_wanted_to_encourage_people_to_visit_museums_and_value_art,_so_they_chose_a_seventeenth-century_Rembrandt_painting__The_Night_Watch__and_they_gave_it_life_in_a_shopping_center_bvkipx.mp4
+Downloaded          
+
+(6/19) – r/dankmemes – DIRECT
+Authentic_shitposts_Pure_Comedy_bvjtxd.jpg
+Downloaded          
+
+(7/19) – r/AdviceAnimals – IMGUR
+==> Client: 12500 - User: 500 - Reset after 60 Minutes 1 Seconds
+zenwalrus_CONGRATULATIONS_ILLINOIS_on_the_legalization_of_marijuana____And_now_a_word_from_your_employer____bvhgkd.jpg
+Downloaded          
+
+(8/19) – r/ProgrammerHumor – DIRECT
+the_real_zaphod_b_When_everything_falls_apart_bvjyaj.mp4
+Downloaded          
+
+(9/19) – r/ImGoingToHellForThis – DIRECT
+Gallex9_Titles_are_hard_bvkroj.jpg
+Downloaded          
+
+(10/19) – r/EngineeringStudents – DIRECT
+Omega11051_Rip_GPA_bvk79w.jpg
+Downloaded          
+
+(11/19) – r/CryptoCurrency – DIRECT
+hodlorcrypt_When_you_ask_people_on_this_sub_(myself_included)_what_price_Bitcoin_will_be_by_next_week_bvl8lm.mp4
+Downloaded          
+
+(12/19) – r/classic4chan – DIRECT
+Harvickfan4Life_Me_too_bvl5tr.jpg
+Downloaded          
+
+(13/19) – r/Bitcoin – DIRECT
+RocketNow182_Hey_Craig_bvgf4z.jpg
+Downloaded          
+
+(14/19) – r/dankmemes – DIRECT
+basketball112233_I’m_so_cool_bvk8my.jpg
+Downloaded          
+
+(15/19) – r/ProgrammerHumor – DIRECT
+MayaG1k_Nothing_wrong_with_it,_just_interesting_bvhy49.png
+Downloaded          
+
+(16/19) – r/dankmemes – DIRECT
+CommieSwine999_New_format_boys_bvk4ec.jpg
+Downloaded          
+
+(17/19) – r/dankmemes – DIRECT
+KiwiSpike1_epic_gamer_moment_bvjyix.jpg
+Downloaded          
+
+(18/19) – r/dankmemes – DIRECT
+TastyDelay_Going_dark_bvi8ib.jpg
+Downloaded          
+
+(19/19) – r/dankmemes – DIRECT
+xd-JeffMcFred_Oopsie_doopsie_bvj96g.jpg
+Downloaded          
+Total of 19 links downloaded!
