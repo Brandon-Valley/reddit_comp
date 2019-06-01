@@ -14,5 +14,5 @@ for key, val in args.items():
 
 
 
-cmd = exe_path + arg_str
+cmd = exe_path + arg_str + ' --NoDownload'
 subprocess.call(cmd, shell=True)

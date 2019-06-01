@@ -25,6 +25,7 @@ import os
 #  
 # download_youtube_vid('https://www.youtube.com/watch?v=mbkAYTg_fhw&feature=share', './videos/FindingNemo1')
 
+import subprocess
 import file_system_utils
 
 # downloads yt vid at highest resolution
@@ -37,14 +38,13 @@ def download_youtube_vid(videourl, path, save_title):
     yt.download(path)
     
     # rename saved video
-    newest_file_path = file_system_utils.get_newest_filename(path)
-    os.rename(newest_file_path, path + save_title + '.mp4')
+    newest_file_path = file_system_utils.get_newest_file_path(path)
+    os.rename(newest_file_path, path + '//' + save_title + '.mp4')
 
 
-download_youtube_vid('https://youtu.be/6j1aHLuPiTo', 'folder', 'post_0')
-subprocess.call(cmd, shell=True)
+download_youtube_vid('https://v.redd.it/cc4ybss0w6131/DASH_720', 'folder', 'post_1')
 
-
+print ('done!')
 # import glob
 # import os
 #  

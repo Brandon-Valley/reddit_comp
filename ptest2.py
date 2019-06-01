@@ -1,72 +1,54 @@
-# from selenium import webdriver
+import json
+ 
+
+def print_str_wo_error(str):
+    output = ''
+    
+    for char in str:
+        try:
+            print(char, end = '')
+        except:
+            print('[' + format(ord(char), "x") + ']', end = '')
+            
+    print('')
+ 
+ 
+ 
+with open("C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile/LOG_FILES/01-06-2019_11-02-26/POSTS.json") as json_file:  
+    data = json.load(json_file)
+    
+    
+    print(data["1"])
+    
+    
+#     for p in data['people']:
+#         print('Name: ' + p['name'])
+#         print('Website: ' + p['website'])
+#         print('From: ' + p['from'])
+#         print('')
+         
+        
+        
+        
+# import json
 # 
+# data = {}  
+# data['people'] = []  
+# data['people'].append({  
+#     'name': 'Scott',
+#     'website': 'stackabuse.com',
+#     'from': 'Nebraska'
+# })
+# data['people'].append({  
+#     'name': 'Larry',
+#     'website': 'google.com',
+#     'from': 'Michigan'
+# })
+# data['people'].append({  
+#     'name': 'Tim',
+#     'website': 'apple.com',
+#     'from': 'Alabama'
+# })
 # 
-# driver = webdriver.Chrome(executable_path="C:/Users/Brandon/Downloads/chromedriver_win32/chromedriver.exe")
-# driver.get('https://www.youtube.com/watch?v=RNZGJEd1YWE')
-# 
-# duration = driver.find_element_by_class_name('ytp-time-duration')
-# 
-# print(duration)
-# print(duration.text)
-
-
-
-
-
-
-
-
-
-# from selenium import webdriver
-# 
-# 
-# driver = webdriver.Chrome(executable_path="C:/Users/Brandon/Downloads/chromedriver_win32/chromedriver.exe")
-# driver.get('https://www.reddit.com/r/dankvideos/comments/bthlor/the_kook_aids_man/')
-# 
-# duration = driver.find_element_by_css_selector('.s1toz0wv-6.aiUF')
-# 
-# print(duration.get_property("attributes"))
-# print(duration.value_of_css_property('.s1toz0wv-6.aiUF'))
-
-
-import subprocess
-
-exe_path = "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe "
-
-# save_path = "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile"
-
-args = {'--directory' : "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile"}
-
-
-arg_str = ''
-for key, val in args.items():
-    arg_str += ' ' + key + ' ' + val
-
-
-
-
-cmd = exe_path + arg_str
-subprocess.call(cmd, shell=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# with open('data.json', 'w') as outfile:  
+#     json.dump(data, outfile)

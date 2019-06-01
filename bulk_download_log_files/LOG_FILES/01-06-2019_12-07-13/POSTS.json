@@ -1,0 +1,43 @@
+{
+    "HEADER": "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory bulk_download_log_files --subreddit videomemes+pics --limit 4 --sort hot --NoDownload",
+    "1": [
+        {
+            "postId": "bvj6t8",
+            "postTitle": "Australian Eagle at the World Jousting Championship",
+            "postSubmitter": "TheBishDish",
+            "postType": "direct",
+            "postURL": "https://i.redd.it/daq9mwv6wp131.png",
+            "postSubreddit": "pics"
+        }
+    ],
+    "2": [
+        {
+            "postId": "bvkoae",
+            "postTitle": "Nword... I mean nether",
+            "postSubmitter": "wiktor_skemm",
+            "postType": null,
+            "postURL": "https://youtu.be/6j1aHLuPiTo",
+            "postSubreddit": "videomemes"
+        }
+    ],
+    "3": [
+        {
+            "postId": "bvjbdm",
+            "postTitle": "Beautiful Barcelona, Spain.",
+            "postSubmitter": "Mono_420",
+            "postType": "direct",
+            "postURL": "https://i.redd.it/2453ztlvzp131.jpg",
+            "postSubreddit": "pics"
+        }
+    ],
+    "4": [
+        {
+            "postId": "bvmf9u",
+            "postTitle": "HAIL MOTHER RUSSIA",
+            "postSubmitter": "livingyeet",
+            "postType": "direct",
+            "postURL": "https://v.redd.it/wehz7zdizo131/DASH_480",
+            "postSubreddit": "videomemes"
+        }
+    ]
+}

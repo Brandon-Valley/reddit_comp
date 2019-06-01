@@ -1,0 +1,16 @@
+
+ C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory bulk_download_log_files --subreddit videomemes+pics --limit 4 --sort hot --NoDownload 
+
+Bulk Downloader for Reddit v1.6.5.1
+
+SUBREDDIT: VIDEOMEMES+PICS
+SORT: HOT
+TIME: ALL
+LIMIT: 4
+
+
+GETTING POSTS
+
+
+Total of 4 submissions found!
+0 GFYCATs, 0 IMGURs, 0 EROMEs, 4 DIRECTs and 0 SELF POSTS
