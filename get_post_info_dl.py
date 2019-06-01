@@ -42,9 +42,7 @@ def build_arg_str(num_posts, subreddit_l, sort_type = DEFAULT_SORT_TYPE):
     subreddit_l_str = subreddit_l[0]
     for subreddit in subreddit_l[1:]:
         subreddit_l_str += '+' + subreddit
-        
-#     print(subreddit_l_str)
-    
+            
     args = [' --directory ' + LOG_FILES_SAVE_PATH,
             ' --subreddit ' + subreddit_l_str,
             ' --limit '     + str(num_posts),
@@ -101,6 +99,6 @@ def get_post_info_dl(num_posts, subreddit_list):
 
 
 
-print( get_post_info_dl(4, ['videomemes', 'pics']))
+# print( get_post_info_dl(4, ['videomemes', 'pics']))
 
     
