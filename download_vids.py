@@ -57,6 +57,13 @@ def download_vids(num_posts, subreddit_list):
             template = "An exception of type {0} occurred. Arguments:\n{1!r}"
             message = template.format(type(e).__name__, e.args)
             print('  Video unavailable:  ', message)
+            continue
+        
+#         # delete video if its too long
+#         vid_save_path = VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_save_title + '.mp4'
+#         if dl_utils.get_vid_length(vid_save_path) > MAX_CLIP_DURATION:
+#             print('  Video too long, deleting video...')
+#             os.remove(vid_save_path)
         
     #     # check url to use the right downloader
     #     if post_info_d['postURL'].startswith('https://www.you'):

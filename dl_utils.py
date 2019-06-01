@@ -8,9 +8,11 @@ import subprocess
 import requests
 import time
 from pytube import YouTube
+from moviepy.editor import VideoFileClip
 
 
 import file_system_utils
+from wx.lib.agw.flatmenu import GetMRUEntryLabel
 
 
 
@@ -20,10 +22,14 @@ import file_system_utils
 #     response = requests.get(url)
 #     return response.text
 
-def getLength(filename):
-  result = subprocess.Popen(["ffprobe", filename],
-    stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
-  return [x for x in result.stdout.readlines() if "Duration" in x]
+def get_vid_length(filename):
+#     result = subprocess.Popen(["ffprobe", filename],
+#     stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+#     print(stdout)#211111``````````````````````````````````````````````````````````````````````````````````````````````
+#     return [x for x in result.stdout.readlines() if "Duration" in x]
+
+    clip = VideoFileClip(filename)
+    return( clip.duration )
 
 
 # '1:36' -->  96
@@ -49,28 +55,32 @@ def get_vid_duration__youtube(driver):
  
 
 # trys to return length of video in seconds, returns false if it cant tell
-def get_vid_duration(driver):
+def get_vid_duration(driver, vid_url):
     try:
-        total_seconds = get_vid_duration__reddit_embedded(driver)
-        return total_seconds
+        myVideo = YouTube(vid_url)
+        return myVideo.length 
     except:
         try:
-            total_seconds = get_vid_duration__youtube(driver)
+            total_seconds = get_vid_duration__reddit_embedded(driver)
             return total_seconds
         except:
-            return False
+            try:
+                total_seconds = get_vid_duration__youtube(driver)
+                return total_seconds
+            except:
+                return False
         
         
 
 # downloads yt vid at highest resolution
 def download_youtube_vid(videourl, path, save_title):
-
+ 
     yt = YouTube(videourl)
     yt = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
     if not os.path.exists(path):
         os.makedirs(path)
     yt.download(path)
-    
+     
     # rename saved video
     newest_file_path = file_system_utils.get_newest_file_path(path)
     os.rename(newest_file_path, path + '//' + save_title + '.mp4')

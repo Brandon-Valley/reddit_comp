@@ -1,13 +1,21 @@
+from moviepy.editor import VideoFileClip, concatenate_videoclips
 
-import dl_utils
-# import template
+
+from moviepy.editor import VideoFileClip, concatenate_videoclips
+
+import os
+from os import listdir
+from os.path import isfile, join
+
+
 VIDS_TO_COMPILE_FOLDER_PATH = 'vids_to_compile'
+VID_CONCAT_FILE_PATH = 'concat_filepaths.txt'
+OUTPUT_VID_FILE_PATH = 'output.mp4'
+vid_filenames_to_compile = [f for f in listdir(VIDS_TO_COMPILE_FOLDER_PATH) if isfile(join(VIDS_TO_COMPILE_FOLDER_PATH, f))]
 
+clip_list = []
+for vid_filename in vid_filenames_to_compile:
+    clip_list.append(VideoFileClip(VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_filename))
 
-print('  Trying to download video...')
-try:
-    dl_utils.download_youtube_vid("https://youtu.be/wFnw5EVGOiI", VIDS_TO_COMPILE_FOLDER_PATH, 'post_111')
-except Exception as e:
-    template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-    message = template.format(type(e).__name__, e.args)
-    print('  Video unavailable:  ', message)
+final_clip = concatenate_videoclips(clip_list)
+final_clip.write_videofile("my_concatenation.mp4")
