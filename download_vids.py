@@ -47,11 +47,11 @@ def download_vids(num_posts, subreddit_list):
     print(INDENT + 'Deleting all files in %s...' %(VIDS_TO_COMPILE_FOLDER_PATH))
     file_system_utils.delete_all_files_in_dir(VIDS_TO_COMPILE_FOLDER_PATH)
 
-    for post_num, post_info_d in enumerate(post_info_dl):
+    for post_num, post_info_d in enumerate(post_info_dl[9:]): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
         testing_utils.print_str_wo_error(INDENT + "Starting on post_info_d #:  %s   title: %s..." %(post_num, post_info_d['postTitle']))
  
-        vid_save_title = 'f_' + str(post_num) + '/' + dl_utils.make_vid_save_name(post_num) #~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        vid_save_title =  dl_utils.make_vid_save_name(post_num)#'f_' + str(post_num) + '/' +
         
                             
         
@@ -93,9 +93,16 @@ def download_vids(num_posts, subreddit_list):
                     break                   
                 
                 except (youtube_dl.utils.DownloadError, OSError) as e:
-                    print(e.args)
-                    print(INDENT + 'Download error, sleeping, then re-trying   post_info_d #:  %s   title: %s...' %(post_num, post_info_d['postTitle']))
-                    time.sleep(5)
+                    dl_utils.correct_failed_vid_audio_combine(VIDS_TO_COMPILE_FOLDER_PATH, vid_save_title)
+                    break
+                    
+
+#                 except OSError as e:
+#                     dl_utils.correct_failed_vid_audio_combine(VIDS_TO_COMPILE_FOLDER_PATH, vid_save_title)
+#                     break
+#                     print(INDENT + 'Got OSERROR, sleeping then trying again...')
+#                     print(e.args)
+#                     time.sleep(3)
                 
                     
         

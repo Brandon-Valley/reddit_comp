@@ -1,5 +1,6 @@
 import praw,requests,re
 import os
+import shutil
 import youtube_dl
 import subprocess
 
@@ -74,6 +75,24 @@ def make_vid_save_name(post_num):
     num_zeros_to_add = 4 - len(str(post_num))
     return 'post_' + ('0' * num_zeros_to_add) + str(post_num)
         
+        
+def correct_failed_vid_audio_combine(save_dir_path, vid_save_title):
+    print('in correct_failed_vid_audio_combine !!!!!!!!!!!!!!!!!!!!!!!!!!!!! ')#```````````````````````````````````````````
+    full_vid_temp_save_path = save_dir_path + '/temp/' + vid_save_title + '.mp4'
+    
+    #check if it downloaded correctly by checking if correct file exists,
+    #if it does, move it to correct folder, if not, combine, then move
+#     if os.path.isfile(full_vid_temp_save_path) == False:
+    vid_file_path    = save_dir_path + '/temp/' + vid_save_title + '.fhls-955.mp4'
+    audio_file_path  = save_dir_path + '/temp/' + vid_save_title + '.fdash-AUDIO-1.m4a'
+    output_file_path = save_dir_path + '/'      + vid_save_title + '.mp4'
+
+    cmd = "ffmpeg -i " + vid_file_path + " -i " + audio_file_path + " -c copy " + output_file_path
+    subprocess.call(cmd, shell=True)
+        
+    # move final video file to correct dir and delete temp folder
+#     os.rename(full_vid_temp_save_path, save_dir_path + '/' + vid_save_title + '.mp4')
+    shutil.rmtree(save_dir_path + '/temp')
 
 # downloads yt vid at highest resolution
 def download_youtube_vid(videourl, path, save_title):
@@ -93,18 +112,33 @@ def download_youtube_vid(videourl, path, save_title):
 def download_reddit_vid(video_url, save_dir_path, vid_save_title):
 
    # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
-    ydl_opts = {'outtmpl': save_dir_path + '/' + vid_save_title + '.%(ext)s',
+    ydl_opts = {'outtmpl': save_dir_path + '/temp/' + vid_save_title + '.%(ext)s',
                 'socket-timeout': 20,
                 'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]'}
 #                 'format':'137'} <------------------------------------------------------------------- this is what is making stuff fail, need to find a way to always use the highest resolution available
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([video_url, ])
+    
+
+    try:
+        # move final video file to correct dir and delete temp folder
+        full_vid_temp_save_path = save_dir_path + '/temp/' + vid_save_title + '.mp4'
+        os.rename(full_vid_temp_save_path, save_dir_path + '/' + vid_save_title + '.mp4')
+        os.rmdir(save_dir_path + '/temp')
+    except OSError:
+        correct_failed_vid_audio_combine(save_dir_path, vid_save_title)
+    
+    
+
+        
+        
             
             
 import download_vids
 if __name__ == '__main__':
 #     download_vids.download_vids(50, ['dankvideos'])
-    download_reddit_vid('https://v.redd.it/hmngsw5agv131/DASH_360', 'test', 'test_vid')
+#     download_reddit_vid('https://v.redd.it/hmngsw5agv131/DASH_360', 'test', 'test_vid')
+    correct_failed_vid_audio_combine('vids_to_compile','post_0001' )
 #     print(get_vid_duration__reddit("bvtsbd"))
 
 
