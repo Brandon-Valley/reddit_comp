@@ -9,12 +9,10 @@ import requests
 import time
 from pytube import YouTube
 from moviepy.editor import VideoFileClip
-
-
-import file_system_utils
 from wx.lib.agw.flatmenu import GetMRUEntryLabel
 
-
+import file_system_utils
+import credentials
 
 # 
 # def get_text_from_url(url):
@@ -42,33 +40,34 @@ def time_str_to_total_seconds(time_str):
     return total_seconds
     
 
-def get_vid_duration__reddit_embedded(driver):
-    sp1 = driver.page_source.split('class="portrait"></video><span class="seek-bar-time"></span></div></div><span class="time-label" data-control-type="text" data-action="totalTime">')
-    duration_str = sp1[1].split('<')[0]
-    
-    return(time_str_to_total_seconds(duration_str))
-
- 
-def get_vid_duration__youtube(driver):
-    duration_str = driver.find_element_by_class_name('ytp-time-duration')
-    return time_str_to_total_seconds(duration_str)
- 
-
-# trys to return length of video in seconds, returns false if it cant tell
-def get_vid_duration(driver, vid_url):
-    try:
-        myVideo = YouTube(vid_url)
-        return myVideo.length 
-    except:
-        try:
-            total_seconds = get_vid_duration__reddit_embedded(driver)
-            return total_seconds
-        except:
-#             try:
-#                 total_seconds = get_vid_duration__youtube(driver)
-#                 return total_seconds
-#             except:
+def get_vid_duration__reddit(post_id):
+        post = credentials.reddit.submission(id=post_id, url=None)
+#         print('                                                        POST>MEDIA:  ', post.media)#````````````````````````````````````````````````````````````````````````````````````````````````
+#         duration = int(post.media['reddit_video']['duration'])
+        if post.media == None:
             return False
+        return int(post.media['reddit_video']['duration'])
+
+ 
+def get_vid_duration__youtube(post_info_d):
+        myVideo = YouTube(post_info_d['postURL'])
+        return myVideo.length 
+ 
+
+# # trys to return length of video in seconds, returns false if it cant tell
+# def get_vid_duration(post_info_d):
+#     
+#     # youtube
+#     if   post_info_d['postType'] == None:
+#         myVideo = YouTube(post_info_d['postURL'])
+#         return myVideo.length 
+#     # reddit embedded 
+#     elif post_info_d['postType'] == 'direct':
+#         post = credentials.reddit.submission(id=post_info_d['postId'], url=None)
+#         return post.media['reddit_video']['duration']
+#     else:
+#         raise ValueError('ERROR:  Dont know how to get duration of this --> post_info_d:  ', post_info_d)
+
         
         
 def make_vid_save_name(post_num):
@@ -95,7 +94,8 @@ def download_reddit_vid(video_url, save_dir_path, vid_save_title):
 
    # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
     ydl_opts = {'outtmpl': save_dir_path + '/' + vid_save_title + '.%(ext)s',
-                'socket-timeout': 20}
+                'socket-timeout': 20,
+                'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]'}
 #                 'format':'137'} <------------------------------------------------------------------- this is what is making stuff fail, need to find a way to always use the highest resolution available
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([video_url, ])
@@ -103,4 +103,12 @@ def download_reddit_vid(video_url, save_dir_path, vid_save_title):
             
 import download_vids
 if __name__ == '__main__':
-    download_vids.download_vids(20, ['dankvideos'])
+#     download_vids.download_vids(50, ['dankvideos'])
+    download_reddit_vid('https://v.redd.it/hmngsw5agv131/DASH_360', 'test', 'test_vid')
+#     print(get_vid_duration__reddit("bvtsbd"))
+
+
+
+
+
+

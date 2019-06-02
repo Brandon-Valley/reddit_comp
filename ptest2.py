@@ -1,57 +1,64 @@
-# import subprocess
-# #HLSPlaylist.m3u8
-# cmd = 'ffmpeg -i "C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/in.m3u8" -acodec copy -vcodec copy out.mp4'
-# subprocess.call(cmd, shell=True)
-# 
-# # cmd = 'ffmpeg -y -i Audio.wav  -r 30 -i Video.h264  -filter:a aresample=async=1 -c:a flac -c:v copy av.mkv'
-# # subprocess.call(cmd, shell=True)                                     # "Muxing Done
-# # print('Muxing Done')
-import praw,requests,re
+# import os
+# import sys
+import tkinter as tkinter
+import sys
 import os
-import youtube_dl
-import subprocess
 
-# from selenium import webdriver
+if sys.version_info[0] < 3:
+    import Tkinter as tkinter
+else:
+    import tkinter
 
-import requests
-import time
-from pytube import YouTube
-from moviepy.editor import VideoFileClip
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst, GObject
 
+# Needed for set_window_handle():
+gi.require_version('GstVideo', '1.0')
+from gi.repository import GstVideo
 
-import file_system_utils
-from wx.lib.agw.flatmenu import GetMRUEntryLabel
+def set_frame_handle(bus, message, frame_id):
+    if not message.get_structure() is None:
+        if message.get_structure().get_name() == 'prepare-window-handle':
+            display_frame = message.src
+            display_frame.set_property('force-aspect-ratio', True)
+            display_frame.set_window_handle(frame_id)
 
-from moviepy.editor import VideoFileClip, concatenate_videoclips
+NUMBER_OF_FRAMES = 8 # with more frames than arguments, videos are repeated
+relative_height = 1 / float(NUMBER_OF_FRAMES)
 
-import os
-from os import listdir
-from os.path import isfile, join
+# Only argument number checked, not validity.
+number_of_file_names_given = len(sys.argv) - 1
+if number_of_file_names_given < 1:
+    print('Give at least one video file name.')
+    sys.exit()
+if number_of_file_names_given < NUMBER_OF_FRAMES:
+    print('Up to', NUMBER_OF_FRAMES, 'video file names can be given.')
+file_names = list()
+for index in range(number_of_file_names_given):
+    file_names.append(sys.argv[index + 1])
 
-import subprocess
-# vid_filenames_to_compile = [f for f in listdir() if isfile(join( f))]
-# print(vid_filenames_to_compile)
-# 
-# 
-# cmd = 'ffmpeg -i %s -i %s -c:v copy -c:a aac -strict experimental %s' % ('in.mp4', 'in.mpd', 'out.mp4')
-# subprocess.call(cmd, shell=True)
-VIDS_TO_COMPILE_FOLDER_PATH = 'vids_to_compile'
+window = tkinter.Tk()
+window.title("Multiple videos in a column using Tk and GST 1.0")
+window.geometry('480x960')
 
+Gst.init(None)
+GObject.threads_init()
 
+for number in range(NUMBER_OF_FRAMES):
+    display_frame = tkinter.Frame(window, bg='')
+    relative_y = number * relative_height
+    display_frame.place(relx = 0, rely = relative_y,
+            anchor = tkinter.NW, relwidth = 1, relheight = relative_height)
+    frame_id = display_frame.winfo_id()
 
-def download_reddit_vid(video_url, save_dir_path, post_title):
+    player = Gst.ElementFactory.make('playbin', None)
+    fullname = os.path.abspath(file_names[number % len(file_names)])
+    player.set_property('uri', 'file://%s' % fullname)
+    player.set_state(Gst.State.PLAYING)
 
-   # see options at https://github.com/rg3/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L89
-    ydl_opts = {'outtmpl': save_dir_path + '/' + post_title + '.%(ext)s',
-                'socket-timeout': 20}
-#                 'format':'137'} <------------------------------------------------------------------- this is what is making stuff fail, need to find a way to always use the highest resolution available
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([video_url, ])
-       
+    bus = player.get_bus()
+    bus.enable_sync_message_emission()
+    bus.connect('sync-message::element', set_frame_handle, frame_id)
 
-            
-            
-download_reddit_vid('https://v.redd.it/761apywe26131/DASH_1080', 'vids_to_compile', 'out')
-
-
-
+window.mainloop()

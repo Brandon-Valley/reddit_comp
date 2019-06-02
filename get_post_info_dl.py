@@ -78,11 +78,12 @@ def build_post_info_dl_from_json():
     return post_info_dl
         
 
-def get_post_info_dl(num_posts, subreddit_list):
-    exe_arg_str = build_arg_str(num_posts, subreddit_list)
-     
-    cmd = EXE_PATH + exe_arg_str
-    subprocess.call(cmd, shell=True)
+def get_post_info_dl(num_posts, subreddit_list, quick_test = False):
+    if quick_test == False:
+        exe_arg_str = build_arg_str(num_posts, subreddit_list)
+         
+        cmd = EXE_PATH + exe_arg_str
+        subprocess.call(cmd, shell=True)
     
     post_info_dl = build_post_info_dl_from_json()
     return post_info_dl

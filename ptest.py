@@ -1,4 +1,3 @@
-import moviepy.editor as mp
-clip = mp.VideoFileClip("vids_to_compile/post_10.mp4")
-clip_resized = clip.resize(height=720) # make the height 360px ( According to moviePy documenation The width is then computed so that the width/height ratio is conserved.)
-clip_resized.write_videofile("movie_resized.mp4")
+import subprocess
+cmd = "ffmpeg -i C:/Users/Brandon/Documents/Personal_Projects/reddit_comp//vids_to_compile/f_10/post_0010.fhls-955.mp4 -i 'C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/vids_to_compile/f_10/post_0010.fdash-AUDIO-1.m4a' -c copy out.mp4"
+subprocess.call(cmd, shell=True)
