@@ -1,4 +1,5 @@
 from moviepy.editor import VideoFileClip, concatenate_videoclips
+# import moviepy.editor as mp
 
 import os
 from os import listdir
@@ -35,28 +36,39 @@ def clean_up_vid_extentions():
             new_vid_filename = split_vid_filename[0] + '.mp4'
             os.rename(VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_filename, VIDS_TO_COMPILE_FOLDER_PATH + '/' + new_vid_filename)
     
-
+    
+def get_height_of_vid(vid_file_path):
+    vid = cv2.VideoCapture(vid_file_path)
+    return vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    
+    
 def get_height_of_tallest_vid_in_dir(dir_path):
-#     vid_filenames = [f for f in listdir(dir_path) if isfile(join(dir_path, f))]
     vid_file_paths = file_system_utils.get_relative_path_of_files_in_dir(dir_path, '.mp4')
     
     max_height = 0
     for vid_file_path in vid_file_paths:
-#         file_path = dir_path + '/' + vid_filename  # change to your own video path
-        vid = cv2.VideoCapture(vid_file_path)
-        height = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        height = get_height_of_vid(vid_file_path)
         if height > max_height:
             max_height = height
     return max_height
 
 
 def resize_all_vids_in_dir(new_height, dir_path):
+    vid_file_paths = file_system_utils.get_relative_path_of_files_in_dir(dir_path, '.mp4')
+    
+    for vid_file_path in vid_file_paths:
+        if new_height != get_height_of_vid(vid_file_path):
+            clip = VideoFileClip(vid_file_path)
+            clip_resized = clip.resize(height=new_height) # make the height 360px ( According to moviePy documenation The width is then computed so that the width/height ratio is conserved.)
+            clip_resized.write_videofile('temp.mp4')
+            
+            clip.reader.close()
+            clip.audio.reader.close_proc()
+            
+            os.remove(vid_file_path)
+            os.rename('temp.mp4', vid_file_path)
+            
 
-
-
-    clip = VideoFileClip.VideoFileClip("vids_to_compile/post_10.mp4")
-    clip_resized = clip.resize(height=720) # make the height 360px ( According to moviePy documenation The width is then computed so that the width/height ratio is conserved.)
-    clip_resized.write_videofile("movie_resized.mp4")
 
     
 def compile_vids():
@@ -64,8 +76,14 @@ def compile_vids():
     
     vid_filenames_to_compile = [f for f in listdir(VIDS_TO_COMPILE_FOLDER_PATH) if isfile(join(VIDS_TO_COMPILE_FOLDER_PATH, f))]
       
+    
     max_vid_height = get_height_of_tallest_vid_in_dir(VIDS_TO_COMPILE_FOLDER_PATH)
-    print(max_vid_height)
+#     print(max_vid_height)
+    
+    resize_all_vids_in_dir(max_vid_height, VIDS_TO_COMPILE_FOLDER_PATH)
+
+
+
 #     # build concat txt file
 #     line_list = []
 #     for vid_filename in vid_filenames_to_compile:
@@ -90,5 +108,5 @@ def compile_vids():
     
     
     
-    
+# resize_all_vids_in_dir(1080, VIDS_TO_COMPILE_FOLDER_PATH)
 compile_vids()

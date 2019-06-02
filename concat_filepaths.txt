@@ -1,8 +1,0 @@
-file vids_to_compile/post_13.mp4
-file vids_to_compile/post_15.mp4
-file vids_to_compile/post_17.mp4
-file vids_to_compile/post_19.mp4
-file vids_to_compile/post_2.mp4
-file vids_to_compile/post_3.mp4
-file vids_to_compile/post_4.mp4
-file vids_to_compile/post_8.mp4
