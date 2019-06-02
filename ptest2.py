@@ -1,64 +1,98 @@
-# import os
-# import sys
-import tkinter as tkinter
-import sys
-import os
+from tkinter import *
+from tkinter import messagebox
+from tkinter import filedialog
+import PIL.Image, PIL.ImageTk
+import cv2
 
-if sys.version_info[0] < 3:
-    import Tkinter as tkinter
-else:
-    import tkinter
 
-import gi
-gi.require_version('Gst', '1.0')
-from gi.repository import Gst, GObject
+class videoGUI:
 
-# Needed for set_window_handle():
-gi.require_version('GstVideo', '1.0')
-from gi.repository import GstVideo
+    def __init__(self, window, window_title):
 
-def set_frame_handle(bus, message, frame_id):
-    if not message.get_structure() is None:
-        if message.get_structure().get_name() == 'prepare-window-handle':
-            display_frame = message.src
-            display_frame.set_property('force-aspect-ratio', True)
-            display_frame.set_window_handle(frame_id)
+        self.window = window
+        self.window.title(window_title)
 
-NUMBER_OF_FRAMES = 8 # with more frames than arguments, videos are repeated
-relative_height = 1 / float(NUMBER_OF_FRAMES)
+        top_frame = Frame(self.window)
+        top_frame.pack(side=TOP, pady=5)
 
-# Only argument number checked, not validity.
-number_of_file_names_given = len(sys.argv) - 1
-if number_of_file_names_given < 1:
-    print('Give at least one video file name.')
-    sys.exit()
-if number_of_file_names_given < NUMBER_OF_FRAMES:
-    print('Up to', NUMBER_OF_FRAMES, 'video file names can be given.')
-file_names = list()
-for index in range(number_of_file_names_given):
-    file_names.append(sys.argv[index + 1])
+        bottom_frame = Frame(self.window)
+        bottom_frame.pack(side=BOTTOM, pady=5)
 
-window = tkinter.Tk()
-window.title("Multiple videos in a column using Tk and GST 1.0")
-window.geometry('480x960')
+        self.pause = False   # Parameter that controls pause button
 
-Gst.init(None)
-GObject.threads_init()
+        self.canvas = Canvas(top_frame)
+        self.canvas.pack()
 
-for number in range(NUMBER_OF_FRAMES):
-    display_frame = tkinter.Frame(window, bg='')
-    relative_y = number * relative_height
-    display_frame.place(relx = 0, rely = relative_y,
-            anchor = tkinter.NW, relwidth = 1, relheight = relative_height)
-    frame_id = display_frame.winfo_id()
+        # Select Button
+        self.btn_select=Button(bottom_frame, text="Select video file", width=15, command=self.open_file)
+        self.btn_select.grid(row=0, column=0)
 
-    player = Gst.ElementFactory.make('playbin', None)
-    fullname = os.path.abspath(file_names[number % len(file_names)])
-    player.set_property('uri', 'file://%s' % fullname)
-    player.set_state(Gst.State.PLAYING)
+        # Play Button
+        self.btn_play=Button(bottom_frame, text="Play", width=15, command=self.play_video)
+        self.btn_play.grid(row=0, column=1)
 
-    bus = player.get_bus()
-    bus.enable_sync_message_emission()
-    bus.connect('sync-message::element', set_frame_handle, frame_id)
+        # Pause Button
+        self.btn_pause=Button(bottom_frame, text="Pause", width=15, command=self.pause_video)
+        self.btn_pause.grid(row=0, column=2)
 
-window.mainloop()
+        self.delay = 15   # ms
+
+        self.window.mainloop()
+
+
+    def open_file(self):
+
+        self.pause = False
+
+        self.filename = filedialog.askopenfilename(title="Select file", filetypes=(("MP4 files", "*.mp4"),
+                                                                                         ("WMV files", "*.wmv"), ("AVI files", "*.avi")))
+        print(self.filename)
+
+        # Open the video file
+        self.cap = cv2.VideoCapture(self.filename)
+
+        self.width = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+        self.height = self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+
+        self.canvas.config(width = self.width, height = self.height)
+
+
+    def get_frame(self):   # get only one frame
+
+        try:
+
+            if self.cap.isOpened():
+                ret, frame = self.cap.read()
+                return (ret, cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+        except:
+            messagebox.showerror(title='Video file not found', message='Please select a video file.')
+
+
+    def play_video(self):
+
+        # Get a frame from the video source, and go to the next frame automatically
+        ret, frame = self.get_frame()
+
+        if ret:
+            self.photo = PIL.ImageTk.PhotoImage(image = PIL.Image.fromarray(frame))
+            self.canvas.create_image(0, 0, image = self.photo, anchor = NW)
+
+        if not self.pause:
+            self.window.after(self.delay, self.play_video)
+
+
+    def pause_video(self):
+        self.pause = True
+
+
+    # Release the video source when the object is destroyed
+    def __del__(self):
+        if self.cap.isOpened():
+            self.cap.release()
+
+##### End Class #####
+
+
+# Create a window and pass it to videoGUI Class
+videoGUI(Tk(), "EnJapan")

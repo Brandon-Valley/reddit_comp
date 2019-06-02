@@ -55,7 +55,7 @@ def get_vid_duration__reddit(post_id):
  
 def get_vid_duration__youtube(post_info_d):
         myVideo = YouTube(post_info_d['postURL'])
-        return myVideo.length 
+        return int(myVideo.length) 
  
 
 # # trys to return length of video in seconds, returns false if it cant tell
