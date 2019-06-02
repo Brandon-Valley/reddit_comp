@@ -1,0 +1,46 @@
+
+ C:/Users/Brandon/Documents/Personal_Projects/reddit_comp/bulk_downloader_for_reddit-1.6.5-windows/bulk-downloader-for-reddit.exe --directory bulk_download_log_files --subreddit dankvideos --limit 50 --sort hot --NoDownload 
+
+Bulk Downloader for Reddit v1.6.5.1
+
+SUBREDDIT: DANKVIDEOS
+SORT: HOT
+TIME: ALL
+LIMIT: 50
+
+
+GETTING POSTS
+ERROR:root:URLError
+Traceback (most recent call last):
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1318, in do_open
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1239, in request
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1285, in _send_request
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1234, in endheaders
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1026, in _send_output
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 964, in send
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 1392, in connect
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\http\client.py", line 936, in connect
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\socket.py", line 724, in create_connection
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\socket.py", line 713, in create_connection
+TimeoutError: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\site-packages\cx_Freeze\initscripts\__startup__.py", line 14, in run
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\site-packages\cx_Freeze\initscripts\Console.py", line 26, in run
+  File "script.py", line 718, in <module>
+  File "script.py", line 691, in main
+  File "C:\Users\Ali\git-repositories\bulk-downloader-for-reddit\src\searcher.py", line 227, in getPosts
+  File "C:\Users\Ali\git-repositories\bulk-downloader-for-reddit\src\searcher.py", line 364, in redditSearcher
+  File "C:\Users\Ali\git-repositories\bulk-downloader-for-reddit\src\searcher.py", line 433, in checkIfMatching
+  File "C:\Users\Ali\git-repositories\bulk-downloader-for-reddit\src\searcher.py", line 487, in isDirectLink
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 223, in urlopen
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 526, in open
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 544, in _open
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 504, in _call_chain
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1361, in https_open
+  File "C:\Users\Ali\AppData\Local\Programs\Python\Python36\lib\urllib\request.py", line 1320, in do_open
+urllib.error.URLError: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>
+
+<urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>

@@ -55,7 +55,7 @@ def compile_vids():
     for vid_filename in vid_filenames_to_compile:
         clip_list.append(VideoFileClip(VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_filename))
     
-    final_clip = concatenate_videoclips(clip_list)
+    final_clip = concatenate_videoclips(clip_list, method='compose')
     final_clip.write_videofile(OUTPUT_VID_FILE_PATH) 
 
     print('done with compile')

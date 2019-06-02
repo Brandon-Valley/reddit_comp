@@ -29,9 +29,6 @@ def download_vids(num_posts, subreddit_list):
     file_system_utils.delete_all_files_in_dir(VIDS_TO_COMPILE_FOLDER_PATH)
 
     for post_num, post_info_d in enumerate(post_info_dl):
-        if post_info_d['postType'] != None:
-            print('  Skipping post#: %s because its postType = %s ...' %(post_num, post_info_d['postType']))
-            continue
         
         testing_utils.print_str_wo_error("  Checking duration of post_info_d #:  %s   title: %s..." %(post_num, post_info_d['postTitle']))
         
@@ -47,17 +44,22 @@ def download_vids(num_posts, subreddit_list):
             continue
         
         
-        vid_save_title = 'post_' + str(post_num)#post_info_d.title.replace(" ", "_") # cant have spaces in the filenames
+        vid_save_title = dl_utils.make_vid_save_name(post_num)
         
         
         print('  Trying to download video...')
-        try:
-            dl_utils.download_youtube_vid(post_info_d['postURL'], VIDS_TO_COMPILE_FOLDER_PATH, vid_save_title)
-        except Exception as e:
-            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
-            message = template.format(type(e).__name__, e.args)
-            print('  Video unavailable:  ', message)
-            continue
+        # youtube video
+        if post_info_d['postType'] == None:
+            try:
+                dl_utils.download_youtube_vid(post_info_d['postURL'], VIDS_TO_COMPILE_FOLDER_PATH, vid_save_title)
+            except Exception as e:
+                template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+                message = template.format(type(e).__name__, e.args)
+                print('  Video unavailable:  ', message)
+                continue
+        # embedded reddit video
+        elif post_info_d['postType'] == 'direct':
+            dl_utils.download_reddit_vid(post_info_d['postURL'], VIDS_TO_COMPILE_FOLDER_PATH, vid_save_title)
         
 #         # delete video if its too long
 #         vid_save_path = VIDS_TO_COMPILE_FOLDER_PATH + '/' + vid_save_title + '.mp4'
