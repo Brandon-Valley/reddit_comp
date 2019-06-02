@@ -28,7 +28,10 @@ def get_vid_length(filename):
 #     return [x for x in result.stdout.readlines() if "Duration" in x]
 
     clip = VideoFileClip(filename)
-    return( clip.duration )
+    duration = clip.duration 
+    clip.reader.close()
+    clip.audio.reader.close_proc()
+    return(duration)
 
 
 # '1:36' -->  96

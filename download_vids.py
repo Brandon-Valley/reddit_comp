@@ -47,7 +47,7 @@ def download_vids(num_posts, subreddit_list):
     print(INDENT + 'Deleting all files in %s...' %(VIDS_TO_COMPILE_FOLDER_PATH))
     file_system_utils.delete_all_files_in_dir(VIDS_TO_COMPILE_FOLDER_PATH)
 
-    for post_num, post_info_d in enumerate(post_info_dl[9:]): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for post_num, post_info_d in enumerate(post_info_dl):
         
         testing_utils.print_str_wo_error(INDENT + "Starting on post_info_d #:  %s   title: %s..." %(post_num, post_info_d['postTitle']))
  
