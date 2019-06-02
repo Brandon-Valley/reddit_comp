@@ -78,7 +78,7 @@ def download_vids(num_posts, subreddit_list):
 
            
 if __name__ == '__main__':
-    download_vids(50, ['dankvideos'])
+    download_vids(70, ['dankvideos'])
     print('done!')
     
     
