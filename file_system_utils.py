@@ -20,10 +20,28 @@ def delete_all_files_in_dir(dir_path):
         except Exception as e:
             print(e)
             
-            
+def get_relative_path_of_files_in_dir(dir_path, file_type):
+    # Getting the current work directory (cwd)
+    thisdir = os.getcwd()
+    
+    path_list = []
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(dir_path):
+        for file in f:
+            if file_type in file:
+#                 print(os.path.join(r, file))
+                path_list.append(os.path.join(r, file))
+    return path_list
             
             
             
 import download_vids
 if __name__ == '__main__':
-    download_vids.download_vids(20, ['videomemes'])
+#     download_vids.download_vids(20, ['videomemes'])
+    print(get_relative_path_of_files_in_dir('vids_to_compile', '.mp4'))
+
+
+
+
+
+
